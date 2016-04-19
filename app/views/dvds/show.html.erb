@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dvdid:</strong>
+  <%= @dvd.dvdid %>
+</p>
+
+<p>
+  <strong>Dvdname:</strong>
+  <%= @dvd.dvdname %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @dvd.status %>
+</p>
+
+<p>
+  <strong>Dvdtype:</strong>
+  <%= @dvd.dvdtype %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @dvd.price %>
+</p>
+
+<%= link_to 'Edit', edit_dvd_path(@dvd) %> |
+<%= link_to 'Back', dvds_path %>

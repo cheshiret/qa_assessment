@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @user.id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @user.status %>
+</p>
+
+<p>
+  <strong>Mem:</strong>
+  <%= @user.mem_id %>
+</p>
+
+<p>
+  <strong>Reg date:</strong>
+  <%= @user.reg_date %>
+</p>
+
+<p>
+  <strong>Expire date:</strong>
+  <%= @user.expire_date %>
+</p>
+
+<p>
+  <strong>Create date:</strong>
+  <%= @user.create_date %>
+</p>
+
+<p>
+  <strong>Update update:</strong>
+  <%= @user.update_update %>
+</p>
+
+<p>
+  <strong>Datetime:</strong>
+  <%= @user.datetime %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cardid: MyString
+  userid: MyString
+  status: 1
+  card_num: MyString
+  pw: MyString
+  balance: 9.99
+
+two:
+  cardid: MyString
+  userid: MyString
+  status: 1
+  card_num: MyString
+  pw: MyString
+  balance: 9.99

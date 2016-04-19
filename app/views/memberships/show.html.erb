@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Memidid:</strong>
+  <%= @membership.memidid %>
+</p>
+
+<p>
+  <strong>Memname:</strong>
+  <%= @membership.memname %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @membership.status %>
+</p>
+
+<p>
+  <strong>Validmonths:</strong>
+  <%= @membership.validmonths %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @membership.cost %>
+</p>
+
+<p>
+  <strong>Freetrans:</strong>
+  <%= @membership.freetrans %>
+</p>
+
+<p>
+  <strong>Cost add:</strong>
+  <%= @membership.cost_add %>
+</p>
+
+<%= link_to 'Edit', edit_membership_path(@membership) %> |
+<%= link_to 'Back', memberships_path %>

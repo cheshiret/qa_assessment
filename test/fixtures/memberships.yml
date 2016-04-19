@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  memidid: MyString
+  memname: MyString
+  status: 1
+  validmonths: 1
+  cost: 1
+  freetrans: 1
+  cost_add: 9.99
+
+two:
+  memidid: MyString
+  memname: MyString
+  status: 1
+  validmonths: 1
+  cost: 1
+  freetrans: 1
+  cost_add: 9.99
