@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :admin
+  root to: 'admin#memberships'
+  get '/users' => 'admin#users'
+  get '/memberships' => 'admin#memberships'
   resources :memberships
 
   resources :dvds
@@ -6,6 +10,8 @@ Rails.application.routes.draw do
   resources :cards
 
   resources :users
+
+  resources :orders
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

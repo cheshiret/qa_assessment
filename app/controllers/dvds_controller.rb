@@ -1,28 +1,25 @@
 class DvdsController < ApplicationController
   before_action :set_dvd, only: [:show, :edit, :update, :destroy]
 
-  # GET /dvds
-  # GET /dvds.json
+
   def index
     @dvds = Dvd.all
   end
 
-  # GET /dvds/1
-  # GET /dvds/1.json
   def show
+    @dvd = Dvd.find(params[:dvdid])
   end
 
-  # GET /dvds/new
+
   def new
     @dvd = Dvd.new
   end
 
-  # GET /dvds/1/edit
+
   def edit
+    @dvd = Dvd.find(params[:dvdid])
   end
 
-  # POST /dvds
-  # POST /dvds.json
   def create
     @dvd = Dvd.new(dvd_params)
 
@@ -37,8 +34,7 @@ class DvdsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /dvds/1
-  # PATCH/PUT /dvds/1.json
+
   def update
     respond_to do |format|
       if @dvd.update(dvd_params)
@@ -51,8 +47,6 @@ class DvdsController < ApplicationController
     end
   end
 
-  # DELETE /dvds/1
-  # DELETE /dvds/1.json
   def destroy
     @dvd.destroy
     respond_to do |format|

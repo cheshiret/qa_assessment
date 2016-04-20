@@ -1,0 +1,13 @@
+<header class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="navbar-inner">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Admin", root_path %></li>
+        <li class="<%= 'active' if current_page?(membership_path) %>"><%= link_to "Membership", membership_path %></li>
+        <li class="<%= 'active' if current_page?(user_path) %>"><%= link_to "User",user_path %></li>
+        <li class="<%= 'active' if current_page?(card_path) %>"><%= link_to "Card",card_path %></li>
+        <li class="<%= 'active' if current_page?(dvd_path) %>"><%= link_to "DVD",dvd_path %></li>
+      </ul>
+    </div>
+  </div>
+</header>

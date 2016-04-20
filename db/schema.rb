@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419100333) do
+ActiveRecord::Schema.define(version: 20160420064833) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "cards", force: true do |t|
     t.string   "cardid"
@@ -42,6 +45,20 @@ ActiveRecord::Schema.define(version: 20160419100333) do
     t.integer  "cost"
     t.integer  "freetrans"
     t.decimal  "costadd"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "order_items", force: true do |t|
+    t.string   "orditemid"
+    t.string   "ordnum"
+    t.string   "userid",     null: false
+    t.string   "dvdid",      null: false
+    t.integer  "status"
+    t.integer  "days"
+    t.decimal  "price"
+    t.datetime "rentaldate"
+    t.datetime "returndate"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
