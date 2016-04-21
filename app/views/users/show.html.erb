@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html>
+<div class="container">
+  <div class="jumbotron">
+    <p class="lead">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -7,7 +12,7 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @user.name %>
+  <%= @user.username %>
 </p>
 
 <p>
@@ -17,33 +22,25 @@
 
 <p>
   <strong>Mem:</strong>
-  <%= @user.mem_id %>
+  <%= @user.memid %>
 </p>
 
 <p>
   <strong>Reg date:</strong>
-  <%= @user.reg_date %>
+  <%= @user.regdate %>
 </p>
 
 <p>
   <strong>Expire date:</strong>
-  <%= @user.expire_date %>
+  <%= @user.expiredate %>
 </p>
 
-<p>
-  <strong>Create date:</strong>
-  <%= @user.create_date %>
-</p>
 
-<p>
-  <strong>Update update:</strong>
-  <%= @user.update_update %>
-</p>
-
-<p>
-  <strong>Datetime:</strong>
-  <%= @user.datetime %>
-</p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+
+    </p>
+  </div>
+</div>
+</html>

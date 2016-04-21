@@ -1,4 +1,4 @@
-class MembershipsController < ApplicationController
+class MembershipsController < AdminController
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
 
   # GET /memberships
@@ -69,6 +69,6 @@ class MembershipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def membership_params
-      params.require(:membership).permit(:memidid, :memname, :status, :validmonths, :cost, :freetrans, :cost_add)
+      params.require(:membership).permit(:memid, :memname, :status, :validmonths, :cost, :freetrans, :costadd)
     end
 end

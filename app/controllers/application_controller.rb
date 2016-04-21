@@ -5,8 +5,5 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
 
-  def current_order
-    session[:ordid] ||= Order.create!.id
-    @current_order ||= Order.find(session[:ordid])
-  end
+
 end

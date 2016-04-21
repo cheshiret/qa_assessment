@@ -1,6 +1,12 @@
-<h1>Listing cards</h1>
+<!DOCTYPE html>
+<html>
+<div class="container">
+  <div class="jumbotron">
+    <p class="lead">
 
-<table>
+    <h1>Listing cards</h1>
+
+<table class="table">
   <thead>
     <tr>
       <th>Cardid</th>
@@ -19,7 +25,7 @@
         <td><%= card.cardid %></td>
         <td><%= card.userid %></td>
         <td><%= card.status %></td>
-        <td><%= card.card_num %></td>
+        <td><%= card.cardnum %></td>
         <td><%= card.pw %></td>
         <td><%= card.balance %></td>
         <td><%= link_to 'Show', card %></td>
@@ -33,3 +39,7 @@
 <br>
 
 <%= link_to 'New Card', new_card_path %>
+    </p>
+  </div>
+</div>
+</html>

@@ -7,7 +7,7 @@ class DvdsController < ApplicationController
   end
 
   def show
-    @dvd = Dvd.find(params[:dvdid])
+    @dvd = Dvd.find(params[:id])
   end
 
 
@@ -17,7 +17,7 @@ class DvdsController < ApplicationController
 
 
   def edit
-    @dvd = Dvd.find(params[:dvdid])
+    @dvd = Dvd.find(params[:id])
   end
 
   def create

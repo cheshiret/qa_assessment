@@ -1,3 +1,9 @@
+
+<!DOCTYPE html>
+<html>
+<div class="container">
+  <div class="jumbotron">
+    <p class="lead">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -17,7 +23,7 @@
 
 <p>
   <strong>Card num:</strong>
-  <%= @card.card_num %>
+  <%= @card.cardnum %>
 </p>
 
 <p>
@@ -32,3 +38,7 @@
 
 <%= link_to 'Edit', edit_card_path(@card) %> |
 <%= link_to 'Back', cards_path %>
+    </p>
+  </div>
+</div>
+</html>

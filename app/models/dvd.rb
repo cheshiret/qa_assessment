@@ -7,7 +7,7 @@ class Dvd < ActiveRecord::Base
     if order.empty?
       return true
     else
-      errors.add(:base, 'There are active associated order')
+      errors.add(:base, 'There are active associated orders')
       return false
     end
   end

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<div class="container">
+  <div class="jumbotron">
+    <p class="lead">
+    <p id="notice"><%= notice %></p>
+    <p>
+      <strong>Ordid:</strong>
+      <%= @order.ordid %>
+    </p>
+
+    <p>
+      <strong>Ordnum:</strong>
+      <%= @order.ordnum %>
+    </p>
+    <p>
+      <strong>Userid:</strong>
+      <%= @order.userid %>
+    </p>
+    <p>
+      <strong>Status:</strong>
+      <%= @order.status %>
+    </p>
+
+    <p>
+      <strong>Ordertype:</strong>
+      <%= @order.ordertype %>
+    </p>
+
+    <%= link_to 'Edit', edit_order_path(@order) %> |
+    <%= link_to 'Back', orders_path %>
+
+    </p>
+  </div>
+</div>
+</html>

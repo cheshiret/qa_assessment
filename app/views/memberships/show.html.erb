@@ -1,13 +1,13 @@
-<p id="notice"><%= notice %></p>
+
 <!DOCTYPE html>
 <html>
 <div class="container">
   <div class="jumbotron">
     <p class="lead">
-
+    <p id="notice"><%= notice %></p>
 <p>
-  <strong>Memidid:</strong>
-  <%= @membership.memidid %>
+  <strong>Memid:</strong>
+  <%= @membership.memid %>
 </p>
 
 <p>
@@ -37,7 +37,7 @@
 
 <p>
   <strong>Cost add:</strong>
-  <%= @membership.cost_add %>
+  <%= @membership.costadd %>
 </p>
 
 <%= link_to 'Edit', edit_membership_path(@membership) %> |

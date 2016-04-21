@@ -1,19 +1,18 @@
 Rails.application.routes.draw do
+
+  root to: 'home#home'
+
+  match '/admin', to: 'admin#index', via: 'get'
+  match '/rental', to: 'rental#index', via: 'get'
   resources :admin
-  root to: 'admin#memberships'
-  get '/users' => 'admin#users'
-  get '/memberships' => 'admin#memberships'
+  resources :rental
   resources :memberships
-
   resources :dvds
-
   resources :cards
-
   resources :users
-
   resources :orders
 
-  # The priority is based upon order of creation: first created -> highest priority.
+  # The priority is based upon orders of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"

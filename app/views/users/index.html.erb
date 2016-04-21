@@ -1,6 +1,12 @@
+<!DOCTYPE html>
+<html>
+<div class="container">
+  <div class="jumbotron">
+    <p class="lead">
+
 <h1>Listing users</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Id</th>
@@ -9,9 +15,6 @@
       <th>Mem</th>
       <th>Reg date</th>
       <th>Expire date</th>
-      <th>Create date</th>
-      <th>Update update</th>
-      <th>Datetime</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,15 +22,12 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.id %></td>
-        <td><%= user.name %></td>
+        <td><%= user.userid %></td>
+        <td><%= user.username %></td>
         <td><%= user.status %></td>
-        <td><%= user.mem_id %></td>
-        <td><%= user.reg_date %></td>
-        <td><%= user.expire_date %></td>
-        <td><%= user.create_date %></td>
-        <td><%= user.update_update %></td>
-        <td><%= user.datetime %></td>
+        <td><%= user.memid %></td>
+        <td><%= user.regdate %></td>
+        <td><%= user.expiredate %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -39,3 +39,7 @@
 <br>
 
 <%= link_to 'New User', new_user_path %>
+    </p>
+  </div>
+</div>
+</html>

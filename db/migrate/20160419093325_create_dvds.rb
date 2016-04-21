@@ -11,9 +11,4 @@ class CreateDvds < ActiveRecord::Migration
     end
   end
 
-  create_table :order_dvds, :id => false do |t|
-    t.references :orders, :dvds
-    t.integer :status
-  end
-  add_index :order_dvds, [:ordid, :dvdid]
 end

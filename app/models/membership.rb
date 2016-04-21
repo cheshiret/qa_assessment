@@ -1,9 +1,9 @@
 class Membership < ActiveRecord::Base
-  has_many :user
+  has_many :users
   before_destroy :ensure_not_referenced_by_any_user
 
   def ensure_not_referenced_by_any_user
-    if user.empty?
+    if users.empty?
       return true
     else
       errors.add(:base, 'There are active associated user')

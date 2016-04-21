@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420064833) do
+ActiveRecord::Schema.define(version: 20160421044408) do
 
-  # These are extensions that must be enabled in order to support this database
+  # These are extensions that must be enabled in orders to support this database
   enable_extension "plpgsql"
 
   create_table "cards", force: true do |t|
@@ -92,12 +92,9 @@ ActiveRecord::Schema.define(version: 20160420064833) do
     t.string   "userid"
     t.string   "username"
     t.integer  "status"
-    t.string   "mem_id"
-    t.datetime "reg_date"
-    t.datetime "expire_date"
-    t.datetime "create_date"
-    t.string   "update_update"
-    t.string   "datetime"
+    t.string   "memid"
+    t.datetime "regdate"
+    t.datetime "expiredate"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,9 +1,9 @@
 class Order < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :dvd
+  belongs_to :users
+  belongs_to :dvds
   has_many :order_itmes
 
   def total_price
-    order_itmes.to_a.sum(&:price)
+    order_items.to_a.sum(&:price)
   end
 end

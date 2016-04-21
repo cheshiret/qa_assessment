@@ -1,0 +1,41 @@
+<%= form_for :order_item,  remote: true do |f| %>
+<div class="field">
+    <%= f.label :orditemid %><br>
+    <%= f.text_field :orditemid %>
+</div>
+<div class="field">
+    <%= f.label :ordnum %><br>
+    <%= f.text_field :ordnum %>
+</div>
+<div class="field">
+    <%= f.label :userid %><br>
+    <%= f.text_field :userid %>
+</div>
+<div class="field">
+    <%= f.label :dvdid %><br>
+    <%= f.text_field :dvdid %>
+</div>
+<div class="field">
+    <%= f.label :status %><br>
+    <%= f.number_field :status %>
+</div>
+<div class="field">
+    <%= f.label :days %><br>
+    <%= f.number_field :days %>
+</div>
+<div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+</div>
+<div class="field">
+    <%= f.label :rentaldate %><br>
+    <%= f.datetime_select :rentaldate %>
+</div>
+<div class="field">
+    <%= f.label :returndate %><br>
+    <%= f.datetime_select :returndate %>
+</div>
+<div class="actions">
+    <%= f.submit %>
+</div>
+<% end %>
