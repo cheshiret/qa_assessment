@@ -1,3 +1,14 @@
 language: ruby
 rvm:
   - 2.1.5
+env:
+  - DB=postgresql
+  - RAILS_ENV=test
+addons:
+  postgresql: "9.3.6"
+script:
+  - RAILS_ENV=test bundle exec rake --trace db:migrate test
+before_script:
+    - psql -c 'create database rentaldvd_test' -U postgres
+    - cp config/database.yml.travis config/database.yml
+
