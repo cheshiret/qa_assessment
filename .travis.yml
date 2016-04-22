@@ -6,11 +6,16 @@ services:
 env:
   - DB=postgresql
   - RAILS_ENV=test
-addons:
-  postgresql: "9.3"
 script:
   - bundle exec rake --trace db:migrate RAILS_ENV=test
 before_script:
-    - psql -c 'create database rentaldvd_test' -U postgres
-    - cp config/database.yml.travis config/database.yml
+  - psql --version
+  - psql -c 'create database rentaldvd_test' -U postgres
+  - cp config/database.yml.travis config/database.yml
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install postgresql-libs
+  - sudo apt-get install postgresql-devel
+  - sudo /etc/init.d/postgresql stop
+  - sudo /etc/init.d/postgresql start 9.3
 
