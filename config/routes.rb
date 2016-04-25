@@ -11,6 +11,12 @@ Rails.application.routes.draw do
   resources :cards
   resources :users
   resources :orders
+  #map.resources :orders, :has_many => [ :order_items ]
+  resources :orders do
+    resources :order_items
+  end
+
+
 
   # The priority is based upon orders of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

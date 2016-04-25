@@ -1,3 +1,4 @@
+<% if false %>
 <!DOCTYPE html>
 <html>
 <div class="container">
@@ -13,3 +14,7 @@
   </div>
 </div>
 </html>
+<% end %>
+
+<%= render 'sidebar' %>
+<%= render 'form', name: "Create New Order", action: "new", readonly: false %>

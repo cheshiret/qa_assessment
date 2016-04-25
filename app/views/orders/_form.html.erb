@@ -1,38 +1,354 @@
-<%= form_for(@order) do |f| %>
-    <% if @order.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+<% if false %>
+    <%= form_for(@order) do |f| %>
+        <% if @order.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
 
-          <ul>
-            <% @order.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
+              <ul>
+                <% @order.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.label :ordid %><br>
+          <%= f.text_field :ordid %>
+        </div>
+        <div class="field">
+          <%= f.label :ordnum %><br>
+          <%= f.text_field :ordnum %>
+        </div>
+        <div class="field">
+          <%= f.label :userid %><br>
+          <%= f.text_field :userid %>
+        </div>
+        <div class="field">
+          <%= f.label :status %><br>
+          <%= f.number_field :status %>
+        </div>
+        <div class="field">
+          <%= f.label :ordertype %><br>
+          <%= f.number_field :ordertype %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit %>
         </div>
     <% end %>
-
-    <div class="field">
-      <%= f.label :ordid %><br>
-      <%= f.text_field :ordid %>
-    </div>
-    <div class="field">
-      <%= f.label :ordnum %><br>
-      <%= f.text_field :ordnum %>
-    </div>
-    <div class="field">
-      <%= f.label :userid %><br>
-      <%= f.text_field :userid %>
-    </div>
-    <div class="field">
-      <%= f.label :status %><br>
-      <%= f.number_field :status %>
-    </div>
-    <div class="field">
-      <%= f.label :ordertype %><br>
-      <%= f.number_field :ordertype %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit %>
-    </div>
 <% end %>
+
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <%= bootstrap_flash %>
+  <%= form_for(@order) do |f| %>
+      <% if @order.errors.any? %>
+          <div id="error_explanation" class="alert alert-danger" role="alert">
+            <label>Error:</label>
+            <ul>
+              <% @order.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+      <h1 class="page-header"><%= name %><%= @order.id %></h1>
+      <div class="row">
+        <div class="col-lg-<%= action == "new" || action == "edit" ? 6 : 12 %>">
+          <% if action == "new" || action == "edit" %>
+              <%= f.label "Customer" %>
+              <%= select_tag "order[userid]", options_from_collection_for_select(@users, "userid", "username", :selected => @order.userid), :include_blank => 'Selected Customer', :required => true, :class => 'form-control' %>
+              <br> <!-- line break -->
+              <% if action == "edit" %>
+              <br> <!-- line break -->
+              <% end %>
+          <% elsif action == "show" %>
+              <h4 class="g-bold">
+                <span>Customer: </span>
+                <%= link_to @users.username, users_path(@users.userid) %>
+                &nbsp;|&nbsp;
+                <span>Date: </span>
+                <span><%= @order.created_at.strftime("%d-%m-%Y - %I:%m %p") %></span>
+                &nbsp;|&nbsp;
+              </h4>
+          <% end %>
+        </div>
+      </div>
+      <% if action == "new" || action == "edit" %>
+          <br> <!-- line break -->
+          <h1 class="page-header">
+            <small>DVDs</small>
+          </h1>
+          <div id="form-add-product" class="row">
+            <div class="col-lg-6">
+              <%= f.label "DVD" %>
+              <%= select_tag "product_list", options_from_collection_for_select(@dvds, "dvdid", "dvdname"), :include_blank => 'Selected DVD', :class => 'form-control' %>
+            </div>
+            <div class="col-lg-6"></div><!-- /.col-lg-6-->
+          </div>
+          <br> <!-- line break -->
+          <div class="row">
+            <div id="dvd_details_box" class="col-lg-12"></div>
+          </div>
+          <br> <!-- line break -->
+          <h1 class="page-header">
+            <small>DVDs</small>
+          </h1>
+          <div id="empty_order_alert" class="alert alert-warning g-margin-b-0 <%= action == "edit" ? "g-display-none" : "" %>" role="alert">La
+            Order is empty! You must add some dvds...
+          </div>
+      <% end %>
+      <br> <!-- line break -->
+      <table id="order_table" class="table table-hover <%= action == "new" ? "hidden" : "" %>">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Producto</th>
+          <th>Serial</th>
+          <th>Precio</th>
+          <th class="text-center">Comision</th>
+          <th class="text-center">Comentario</th>
+          <% if action == "edit" %>
+              <th></th>
+          <% end %>
+        </tr>
+        </thead>
+        <tbody id="order_detail">
+        <% if action == "show" || action == "edit" %>
+            <% @order_details.each_with_index do |order_detail, i| %>
+                <% i = i + 1 %>
+                <tr id="row_<%= order_detail.product_detail_id %>">
+                  <td>
+                    <span><%= i %></span>
+                    <input class="hidden" value="<%= i %>" name="order[order_detail][][product_id]">
+                  </td>
+                  <td>
+                    <span><%= link_to order_detail.product.name, order_detail.product %></span>
+                  </td>
+                  <td>
+                    <span><%= link_to order_detail.product_detail.serial, edit_product_product_detail_path(order_detail.product, order_detail.product_detail) %></span>
+                    <input class="hidden" value="<%= order_detail.product_detail_id %>" name="order[order_detail][][product_detail_id]">
+                  </td>
+                  <td>
+                    Bs. <a id="price_<%= order_detail.product_detail_id %>"><%= order_detail.price.price %></a>
+                    <input class="hidden" value="<%= order_detail.price.id %>" name="order[order_detail][][price_id]">
+                  </td>
+                  <td class="text-center">
+                    <% if action == 'show' %>
+                        <label id="comission_<%= order_detail.product_detail_id %>" maxlenght="2"><%= order_detail.comission.present? ? order_detail.comission : '0' %></label>%
+                    <% else %>
+                        <label id="comission_<%= order_detail.product_detail_id %>" maxlenght="2" contenteditable="" onkeypress="return just_numbers(event)" onkeyup="calculate('<%= order_detail.product_detail_id %>')"><%= order_detail.comission.present? ? order_detail.comission : '0' %></label>%
+                    <% end %>
+                    <input id="comission_<%= order_detail.product_detail_id %>_input" class="hidden" value="<%= order_detail.comission %>" name="order[order_detail][][comission]">
+                  </td>
+                  <td class="text-center">
+                    <span><%= order_detail.product_detail.comment.present? ? order_detail.product_detail.comment : '-' %></span>
+                  </td>
+                  <% if action == "edit" %>
+                      <td>
+                        <button type="button" onclick="remove_row(<%= order_detail.product_id %>,'<%= order_detail.product.name %>',<%= order_detail.product_detail_id %>,'<%= order_detail.product_detail.serial %>','<%= order_detail.product_detail.comment %>')" id="btn_remove_<%= order_detail.product_detail_id %>" class="btn btn-danger btn-xs">
+                          <i class="fa fa-times"></i> Remover
+                        </button>
+                      </td>
+                  <% end %>
+                </tr>
+            <% end %>
+        <% end %>
+        </tbody>
+      </table>
+      <br> <!-- line break -->
+      <div class="row">
+        <div class="col-sm-3 col-md-6 col-lg-8"></div><!-- /.col-lg-8 -->
+        <div class="col-sm-9 col-md-6 col-lg-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><b>Resumen</b></h3>
+            </div>
+            <div class="panel-body">
+              <ul class="list-5 no-bullet g-bold">
+                <li>Total</li>
+              </ul>
+              <ul class="list-5 no-bullet">
+
+                <li class="text-right">
+                  Bs. <span id="total"><%= @order.total.present? ? @order.total : 0 %></span>
+                  <%= f.text_field :total, class: "hidden", :value => (@order.total.present? ? @order.total : 0), :required => true, readonly: readonly %>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <%= button_tag(type: 'submit', id: "process_order", class: "btn btn-success width-100 g-display-none") do %>
+              <i class="fa fa-shopping-cart"></i> Procesar orden
+          <% end %>
+
+          <% if action == "show" %>
+              <%= link_to '<button type="button" class="btn btn-default width-100"><i class="fa fa-pencil"></i> Editar order</button>'.html_safe, edit_order_path(@order) %>
+              <% if @order.invoice.present? %>
+                  <br>
+                  <a href="#" id="pop">
+                    <button type="button" class="btn btn-success width-100" style="margin-top: 5px;">
+                      <i class="fa fa-paperclip"></i>Ver factura #<%= @order.invoice %></button>
+                  </a>
+              <% end %>
+          <% elsif action == "edit" %>
+              <%= button_tag(type: 'submit', id: "update_order", class: "btn btn-success width-100") do %>
+                  <i class="fa fa-floppy-o"></i> Actualizar orden
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+      <br> <!-- line break -->
+
+  <% end %>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#pop").on("click", function () {
+    $('#imagepreview').attr('src', $('#imageresource').attr('src'));
+    $('#imagemodal').modal('show');
+
+  });
+  var calculate, root;
+  $("#order_customer_id").change(function () {
+    var customer;
+    customer = $(this).find("option:selected").text();
+    return $("#order_customer_search").val(customer);
+  });
+  $("#product_list").change(function () {
+    var customer;
+    customer = $(this).find("option:selected").text();
+    return $("#order_product_search").val(customer);
+  });
+  $("#btn-add-product").click(function () {
+    var btn;
+    btn = $("#btn-add-product");
+    if (btn.prop("type", "submit")) {
+      btn.prop("type", "button");
+    }
+    if (btn.prop("type", "button")) {
+      return btn.prop("type", "submit");
+    }
+  });
+  $(document).on('change', '#product_list', function (evt, data) {
+    $("#product_details_box").empty();
+    return $.ajax('update_quantity', {
+      type: 'GET',
+      url: '/orders/update_quantity',
+      dataType: 'script',
+      data: {
+        product_id: $("#product_list option:selected").val()
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        return console.log("AJAX Error: " + textStatus);
+      },
+      success: function (data, textStatus, jqXHR) {
+        var btn, comment, key, pkey, price_id, price_val, product, pval, results, val;
+        $("#product_details_box").append('<table class="table table-hover"> <thead> <tr> <th>#</th> <th>Serial</th> <th class="text-center">Fecha registro</th> <th class="text-center">Comentario</th> <th class="text-center"></th> <th></th> </tr> </thead> <tbody id="details_box"> </tbody> </table>');
+        product = JSON.parse(data);
+        if (product.length === 0) {
+          return $("#product_details_box table").hide();
+        } else {
+          results = [];
+          for (pkey in product) {
+            pval = product[pkey];
+            price_id = pval.current_price.id;
+            price_val = pval.current_price.price;
+            results.push((function () {
+              var ref, results1;
+              ref = pval.product_details_availables;
+              results1 = [];
+              for (key in ref) {
+                val = ref[key];
+                comment = !!val.comment ? val.comment : "-";
+                btn = $("#row_" + val.id).is(':visible') ? "hidden" : "visible";
+                results1.push($("#details_box").append('<tr> <td>' + val.id + '</td> <td>' + val.serial + '</td> <td class="text-center">' + val.created_at + '</td> <td class="text-center">' + comment + '</td> <td class="text-center"> <button type="button" onclick="add_row(\'' + val.product_id + '\',\'' + pval.name + '\',\'' + price_id + '\',\'' + price_val + '\',\'' + val.id + '\',\'' + val.serial + '\',\'' + comment + '\')" id="btn_add_' + val.id + '" class="btn btn-success btn-xs ' + btn + '"> <i class="fa fa-plus"></i> Agregar</span> </button></td> </tr>'));
+              }
+              return results1;
+            })());
+          }
+          return results;
+        }
+      }
+    });
+  });
+  root = typeof exports !== "undefined" && exports !== null ? exports : this;
+  root.add_row = function (product_id, product_name, price_id, price_val, detail_id, serial, comment) {
+    $("#btn_add_" + detail_id).hide();
+    $("#order_table").removeClass("hidden");
+    $("#order_table").show();
+    if ($("#empty_orden_alert").is(':visible')) {
+      $("#empty_orden_alert").hide();
+      $("#process_order").show();
+    }
+    $("#order_table #order_detail").append('<tr id="row_' + detail_id + '"> <td> <span>' + product_id + '</span> <input class="hidden" value="' + product_id + '" name="order[order_detail][][product_id]"> </td> <td> <span>' + product_name + '</span> </td> <td> <span>' + serial + '</span> <input class="hidden" value="' + detail_id + '" name="order[order_detail][][product_detail_id]"> </td> <td> Bs. <a id="price_' + detail_id + '">' + price_val + '</a> <input class="hidden" value="' + price_id + '" name="order[order_detail][][price_id]"> </td> <td class="text-center"> <label id="comission_' + detail_id + '" maxlenght="2" contenteditable onkeypress="return just_numbers(event)" onkeyup="calculate(\'' + detail_id + '\')">0</label>% <input id="comission_' + detail_id + '_input" class="hidden" value="0" name="order[order_detail][][comission]"> </td> <td class="text-center"> <span>' + comment + '</span> </td> <td> <button type="button" onclick="remove_row(\'' + product_id + '\',\'' + product_name + '\',\'' + detail_id + '\',\'' + serial + '\',\'' + comment + '\')" id="btn_remove_' + detail_id + '" class="btn btn-danger btn-xs"> <i class="fa fa-times"></i> Remover</span> </button></td> </td> </tr>');
+    return calculate();
+  };
+  root.remove_row = function (product_id, product_name, id, serial, comment) {
+    $("#btn_add_" + id).show();
+    $("#btn_add_" + id).removeClass('hidden');
+    $("#order_detail #row_" + id).remove();
+    if ($("tbody#order_detail").children().length === 0) {
+      $("#order_table").hide();
+      $("#process_order").hide();
+      $("#update_order").hide();
+      $("#empty_orden_alert").show();
+    }
+    return calculate();
+  };
+  calculate = function (row) {
+    var comission, comission_percent, iva, subtotal, tax, total;
+    comission_percent = $("#comission_" + row).html();
+    if (comission_percent === "") {
+      $("#comission_" + row).html("0");
+      comission_percent = 0;
+    }
+    $("#comission_" + row + '_input').val(comission_percent);
+    subtotal = 0;
+    comission = 0;
+    $("#order_detail tr td a[id^=price_]").each(function () {
+      var i, id, p;
+      i = parseFloat($(this).text());
+      subtotal += i;
+      id = this.id;
+      id = id.split('_');
+      id = id[1];
+      p = parseFloat($("#comission_" + id).text()) / 100;
+      return comission += i * p;
+    });
+    iva = $("#iva").val();
+    tax = subtotal * iva;
+    total = subtotal - comission - tax;
+    $("#subtotal").text(subtotal);
+    $("#comission").text(comission);
+    $("#tax").text(tax);
+    $("#total").text(total);
+    $("#order_subtotal").val(subtotal);
+    $("#order_comission").val(comission);
+    $("#order_tax").val(tax);
+    return $("#order_total").val(total);
+  };
+  root.just_numbers = function (e) {
+    var keynum;
+    keynum = window.event ? window.event.keyCode : e.which;
+    if (keynum === 8 || keynum === 46) {
+      return true;
+    }
+    return /\d/.test(String.fromCharCode(keynum));
+  };
+</script>
