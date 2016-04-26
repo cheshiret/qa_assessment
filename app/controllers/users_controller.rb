@@ -1,6 +1,6 @@
 class UsersController < AdminController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+#  before_action :set_order, only: [:show, :destroy]
   # GET /users
   # GET /users.json
   def index
@@ -10,7 +10,10 @@ class UsersController < AdminController
   # GET /users/1
   # GET /users/1.json
   def show
-    @order = Order.by_user_id(@order.userid)
+#    @order = Order.by_user_id(@user.userid)
+#    @user = User.find(params[:userid])
+#    @order = @user.orders.find(params[:userid])
+        #Order.by_user_id(@user.userid)
   end
 
   # GET /users/new
@@ -68,6 +71,11 @@ class UsersController < AdminController
     def set_user
       @user = User.find(params[:id])
     end
+
+    # def set_order
+    #   #@order = Order.joins(:users).by_user_id(params[:userid])
+    #   @order = Order.joins(:users).find(params[:userid])
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params

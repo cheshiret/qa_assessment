@@ -1,5 +1,5 @@
 class Membership < ActiveRecord::Base
-  has_many :users
+  has_many :users, :foreign_key => 'memid'
   before_destroy :ensure_not_referenced_by_any_user
 
   def ensure_not_referenced_by_any_user

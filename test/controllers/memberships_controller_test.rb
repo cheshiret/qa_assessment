@@ -18,7 +18,7 @@ class MembershipsControllerTest < ActionController::TestCase
 
   test "should create membership" do
     assert_difference('Membership.count') do
-      post :create, membership: { cost: @membership.cost, cost_add: @membership.cost_add, freetrans: @membership.freetrans, memidid: @membership.memidid, memname: @membership.memname, status: @membership.status, validmonths: @membership.validmonths }
+      post :create, membership: { cost: @membership.cost, costadd: @membership.costadd, freetrans: @membership.freetrans, memid: @membership.memid, memname: @membership.memname, status: @membership.status, validmonths: @membership.validmonths }
     end
 
     assert_redirected_to membership_path(assigns(:membership))
@@ -35,7 +35,7 @@ class MembershipsControllerTest < ActionController::TestCase
   end
 
   test "should update membership" do
-    patch :update, id: @membership, membership: { cost: @membership.cost, cost_add: @membership.cost_add, freetrans: @membership.freetrans, memidid: @membership.memidid, memname: @membership.memname, status: @membership.status, validmonths: @membership.validmonths }
+    patch :update, id: @membership, membership: { cost: @membership.cost, costadd: @membership.costadd, freetrans: @membership.freetrans, memid: @membership.memid, memname: @membership.memname, status: @membership.status, validmonths: @membership.validmonths }
     assert_redirected_to membership_path(assigns(:membership))
   end
 

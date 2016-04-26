@@ -48,6 +48,7 @@ class DvdsController < ApplicationController
   end
 
   def destroy
+    @dvd = Dvd.find(params[:id])
     @dvd.destroy
     respond_to do |format|
       format.html { redirect_to dvds_url, notice: 'Dvd was successfully destroyed.' }
