@@ -4,3 +4,4 @@ Feature: Home page
     Given I am logged in
     When I am on the homepage
     Then I should see the content "Admin"
+    Then I should see the content "Rental"
