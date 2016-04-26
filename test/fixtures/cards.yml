@@ -4,7 +4,7 @@ one:
   cardid: MyString
   userid: MyString
   status: 1
-  card_num: MyString
+  cardnum: MyString
   pw: MyString
   balance: 9.99
 
@@ -12,6 +12,6 @@ two:
   cardid: MyString
   userid: MyString
   status: 1
-  card_num: MyString
+  cardnum: MyString
   pw: MyString
   balance: 9.99

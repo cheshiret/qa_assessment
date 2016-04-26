@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-  belongs_to :memberships, :foreign_key => 'memid'
+  belongs_to :membership, :foreign_key => 'memid'
   has_many :cards
-  has_many :orders
+  has_many :orders, :dependent => :destroy
 
   before_destroy :ensure_not_referenced_by_any_active_order
 

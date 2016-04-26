@@ -95,7 +95,7 @@
           <h1 class="page-header">
             <small>DVDs</small>
           </h1>
-          <div id="empty_order_alert" class="alert alert-warning g-margin-b-0 <%= action == "edit" ? "g-display-none" : "" %>" role="alert">La
+          <div id="empty_order_alert" class="alert alert-warning g-margin-b-0 <%= action == "edit" ? "g-display-none" : "" %>" role="alert">The
             Order is empty! You must add some dvds...
           </div>
       <% end %>
@@ -103,12 +103,11 @@
       <table id="order_table" class="table table-hover <%= action == "new" ? "hidden" : "" %>">
         <thead>
         <tr>
-          <th>#</th>
-          <th>Producto</th>
-          <th>Serial</th>
-          <th>Precio</th>
-          <th class="text-center">Comision</th>
-          <th class="text-center">Comentario</th>
+          <th>DVD ID</th>
+          <th>DVD Name</th>
+          <th>DVD Type
+          <th class="text-center">Days</th>
+          <th>Price</th>
           <% if action == "edit" %>
               <th></th>
           <% end %>
@@ -116,39 +115,31 @@
         </thead>
         <tbody id="order_detail">
         <% if action == "show" || action == "edit" %>
-            <% @order_details.each_with_index do |order_detail, i| %>
+            <% @order_items.each_with_index do |order_item, i| %>
                 <% i = i + 1 %>
-                <tr id="row_<%= order_detail.product_detail_id %>">
+                <tr id="row_<%= order_item.dvdid %>">
                   <td>
                     <span><%= i %></span>
-                    <input class="hidden" value="<%= i %>" name="order[order_detail][][product_id]">
+                    <input class="hidden" value="<%= i %>" name="order[order_item][][dvdid]">
                   </td>
                   <td>
-                    <span><%= link_to order_detail.product.name, order_detail.product %></span>
+                    <span><%= link_to order_item.dvd.name, order_item.dvd %></span>
                   </td>
                   <td>
-                    <span><%= link_to order_detail.product_detail.serial, edit_product_product_detail_path(order_detail.product, order_detail.product_detail) %></span>
-                    <input class="hidden" value="<%= order_detail.product_detail_id %>" name="order[order_detail][][product_detail_id]">
-                  </td>
-                  <td>
-                    Bs. <a id="price_<%= order_detail.product_detail_id %>"><%= order_detail.price.price %></a>
-                    <input class="hidden" value="<%= order_detail.price.id %>" name="order[order_detail][][price_id]">
+                    <span><%= link_to order_item.dvd.dvdtype, order_item.dvd %></span>
                   </td>
                   <td class="text-center">
-                    <% if action == 'show' %>
-                        <label id="comission_<%= order_detail.product_detail_id %>" maxlenght="2"><%= order_detail.comission.present? ? order_detail.comission : '0' %></label>%
-                    <% else %>
-                        <label id="comission_<%= order_detail.product_detail_id %>" maxlenght="2" contenteditable="" onkeypress="return just_numbers(event)" onkeyup="calculate('<%= order_detail.product_detail_id %>')"><%= order_detail.comission.present? ? order_detail.comission : '0' %></label>%
-                    <% end %>
-                    <input id="comission_<%= order_detail.product_detail_id %>_input" class="hidden" value="<%= order_detail.comission %>" name="order[order_detail][][comission]">
+                    <span><%= order_item.days.present? ? order_item.days : '-' %></span>
                   </td>
-                  <td class="text-center">
-                    <span><%= order_detail.product_detail.comment.present? ? order_detail.product_detail.comment : '-' %></span>
+                  <td>
+                    Rupees. <a id="price_<%= order_item.dvdid %>"><%= order_item.dvd.price %></a>
+                    <input class="hidden" value="<%= order_item.dvd.id %>" name="order[order_item][][price_id]">
                   </td>
+
                   <% if action == "edit" %>
                       <td>
-                        <button type="button" onclick="remove_row(<%= order_detail.product_id %>,'<%= order_detail.product.name %>',<%= order_detail.product_detail_id %>,'<%= order_detail.product_detail.serial %>','<%= order_detail.product_detail.comment %>')" id="btn_remove_<%= order_detail.product_detail_id %>" class="btn btn-danger btn-xs">
-                          <i class="fa fa-times"></i> Remover
+                        <button type="button" onclick="remove_row(<%= order_item.dvdid %>,'<%= order_item.dvd.dvdname %>',<%= order_item.dvdtype %>,'<%= order_item.days %>','<%= order_item.dvd.price %>')" id="btn_remove_<%= order_item.dvdid %>" class="btn btn-danger btn-xs">
+                          <i class="fa fa-times"></i> Remove
                         </button>
                       </td>
                   <% end %>
@@ -163,7 +154,7 @@
         <div class="col-sm-9 col-md-6 col-lg-4">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"><b>Resumen</b></h3>
+              <h3 class="panel-title"><b>Summary</b></h3>
             </div>
             <div class="panel-body">
               <ul class="list-5 no-bullet g-bold">
@@ -179,7 +170,7 @@
             </div>
           </div>
           <%= button_tag(type: 'submit', id: "process_order", class: "btn btn-success width-100 g-display-none") do %>
-              <i class="fa fa-shopping-cart"></i> Procesar orden
+              <i class="fa fa-shopping-cart"></i> Process Order
           <% end %>
 
           <% if action == "show" %>

@@ -1,23 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: MyString
-  name: MyString
-  status: 
-  mem_id: MyString
-  reg_date: 2016-04-19 16:50:16
-  expire_date: 2016-04-19 16:50:16
-  create_date: 2016-04-19 16:50:16
-  update_update: MyString
-  datetime: MyString
+  userid: MyString
+  username: MyString
+  status: 1
+  memid: MyString
+  regdate: 2016-04-19 16:50:16
+  expiredate: 2016-04-19 16:50:16
 
 two:
-  id: MyString
-  name: MyString
-  status: 
-  mem_id: MyString
-  reg_date: 2016-04-19 16:50:16
-  expire_date: 2016-04-19 16:50:16
-  create_date: 2016-04-19 16:50:16
-  update_update: MyString
-  datetime: MyString
+  userid: MyString
+  username: MyString
+  status: 0
+  memid: MyString
+  regdate: 2016-04-19 16:50:16
+  expiredate: 2016-04-19 16:50:16

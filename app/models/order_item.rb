@@ -1,11 +1,11 @@
 class OrderItem < ActiveRecord::Base
-  belongs_to :orders, foreign_key: :ordid
+  belongs_to :orders, foreign_key: "ordid"
 
   def self.by_order_id(order_id)
     where("ordid = ?", order_id)
   end
 
-  def self.process_order_item(order, order_item_params)
+  def self.process_order_items(order, order_item_params)
     order_item_params.each do |order_item_param|
       if OrderItem.exists?(:dvdid => order_item_param["dvdid"])
         OrderItem.where("ordid = ?", order.ordid)

@@ -19,7 +19,7 @@
           </div><!-- /input-group -->
         </div><!-- /.col-lg-8 -->
         <div class="col-lg-4">
-          <%= select_tag(:ordering, options_for_select( [ ['Mas reciente', "0"], ['Mas antiguo', "1"] ], :selected => params[:ordering] ), { :class => 'form-control' } )  %>
+          <%= select_tag(:ordering, options_for_select( [ ['ASC', "0"], ['DESC', "1"] ], :selected => params[:ordering] ), { :class => 'form-control' } )  %>
         </div><!-- /.col-lg-4 -->
     <% end %>
   </div>

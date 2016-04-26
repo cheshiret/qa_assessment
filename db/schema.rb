@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20160425082834) do
     t.integer  "ordertype"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "tatol"
+    t.decimal  "total"
   end
 
   create_table "transactions", force: true do |t|

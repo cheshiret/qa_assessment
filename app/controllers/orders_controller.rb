@@ -35,6 +35,7 @@ class OrdersController < ApplicationController
   def create
     @order =Order.create(order_params.except!(:order_item))
         #Order.new(order_params)
+    OrderItem.process_order_items(@order,order_params[:order_item])
 
     respond_to do |format|
       if @order.save
@@ -52,8 +53,9 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.update_attributes(order_params.except!(:order_item))
         if order_params[:order_item].present?
-      #if @order.update(order_params)
-          OrderItem.process_order_details(@order,order_params[:order_detail])
+          OrderItem.process_order_items(@order,order_params[:order_item])
+
+          #if @order.update(order_params)
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else
@@ -106,11 +108,11 @@ class OrdersController < ApplicationController
     @order_items = OrderItem.joins(:dvds).by_order_id(params[:ordid])
   end
 
-  def set_customers
+  def set_users
     @users = User.all.order('username ASC')
   end
 
-  def set_dvd
+  def set_dvds
     @dvds = Dvd.order('dvdname ASC')
   end
   def order_params
