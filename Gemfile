@@ -72,4 +72,7 @@ group :test do
   gem 'faker', '~> 1.6.1'
   #a code coverage analysis tool for Ruby.
   gem 'simplecov', :require => false
+  #Cucumber helps us both focus on the feature-level and as a high-level integration testing tool.
+  gem 'cucumber-rails', require: false
+  gem 'selenium-webdriver'
 end
