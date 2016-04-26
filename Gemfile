@@ -46,13 +46,30 @@ group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
-
+  #Automation framework used for creating functional tests that simulates how users will interact with your application.
+  gem 'capybara', '~> 2.5'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+
+  #Factory Girl allows you create objects that you need in your tests which can include default values.
+  gem 'factory_girl_rails', '~> 4.5.0'
 end
 
 group :development, :test do
 
   # Importing bootstrap
   gem "twitter-bootstrap-rails"
+
+  gem 'rspec-rails', '~> 3.4'
+end
+
+group :test do
+  #Shoulda-Matchers provides one-line matchers to RSpec used in testing Rails functionality which we will see briefly
+  gem 'shoulda-matchers', '~> 3.0', require: false
+  #Database Cleaner is a set of strategies for cleaning your database in Ruby between test runs.
+  gem 'database_cleaner', '~> 1.5'
+  #generating random data for your test
+  gem 'faker', '~> 1.6.1'
+  #a code coverage analysis tool for Ruby.
+  gem 'simplecov', :require => false
 end
