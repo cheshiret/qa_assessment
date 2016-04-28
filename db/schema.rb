@@ -100,4 +100,7 @@ ActiveRecord::Schema.define(version: 20160425082834) do
     t.datetime "updated_at"
   end
 
+  add_index "users", ["memid"], name: "index_users_on_memid", using: :btree
+  add_index "users", ["userid"], name: "index_users_on_userid", using: :btree
+
 end
